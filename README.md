@@ -1,33 +1,23 @@
 # pgyer-webhook
 
+一个蒲公英 Webhook 服务，实现 APP 上传更新后能发送推送消息到指定的钉钉群。
 
-
-## QuickStart
-
-<!-- add docs here for user -->
-
-see [egg docs][egg] for more detail.
-
-### Development
+## 启动服务
 
 ```bash
 $ npm i
-$ npm run dev
-$ open http://localhost:7001/
+$ npm run startd
 ```
 
-### Deploy
+startd 为启动后台服务，关闭后台服务：`npm run stop`
 
-```bash
-$ npm start
-$ npm stop
-```
+前台启动：`npm run start`
 
-### npm scripts
+## 配置钉钉机器人
 
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
+创建一个钉钉机器人，并添加自定义关键词 `更新`。
 
+## 配置蒲公英 Webhook 地址
 
-[egg]: https://eggjs.org
+1. 创建新的 Webhook，要推送的功能勾选 `版本更新`
+2. 填写 Webhook URL：`http://your-server.com/appWebhook/update/@dingTalk/{accessToken}`。（accessToken 为钉钉机器人 Webhook 地址中的 token）
