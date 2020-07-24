@@ -21,8 +21,7 @@ class AppWebHookController extends Controller {
 
     const pushContent = `应用「${req.title} for ${req.device_type}」有新的版本更新
 版本号：${req.os_version} Build：${req.build_version}
-下载地址：${req.link}
-    `;
+下载地址：${req.link}`;
     console.log(`发送钉钉通知：\n${pushContent}`);
 
     const pushRes = await this.ctx.curl(`https://oapi.dingtalk.com/robot/send?access_token=${accessToken}`, {
