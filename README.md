@@ -5,7 +5,7 @@
 ## 启动服务
 
 ```bash
-$ npm i
+$ npm install --production
 $ npm run startd
 ```
 
