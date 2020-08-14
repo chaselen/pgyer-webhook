@@ -23,20 +23,9 @@ class AppWebHookController extends Controller {
 版本号：${req.os_version} Build：${req.build_version}
 下载地址：${req.link}`;
     console.log(`发送钉钉通知：\n${pushContent}`);
+    const res = await this.ctx.service.dingtalk.sendText(accessToken, pushContent);
 
-    const pushRes = await this.ctx.curl(`https://oapi.dingtalk.com/robot/send?access_token=${accessToken}`, {
-      method: 'POST',
-      contentType: 'json',
-      dataType: 'json',
-      data: {
-        msgtype: 'text',
-        text: {
-          content: pushContent,
-        },
-      },
-    });
-
-    this.ctx.body = pushRes.data;
+    this.ctx.body = res;
   }
 }
 
