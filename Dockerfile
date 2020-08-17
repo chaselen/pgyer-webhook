@@ -1,5 +1,5 @@
 FROM node:alpine
 COPY . /app
-RUN cd /app && npm install 
-RUN npm run build
+WORKDIR /app
+RUN npm install --production
 ENTRYPOINT [ "npm", "run", "start" ]
