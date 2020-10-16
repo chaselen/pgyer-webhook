@@ -17,9 +17,9 @@ $ open http://localhost:7001/
 ### 部署
 
 ```bash
-$ npm install --production
+$ npm install
 $ npm run tsc
-$ npm start
+$ npm run start
 ```
 
 前台启动：`npm run start`
