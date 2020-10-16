@@ -1,18 +1,16 @@
-'use strict';
-
-const Controller = require('egg').Controller;
+import { Controller } from 'egg';
+import PgyerWebhookUpdate from '../model/dto/PgyerWebhookUpdate';
 
 /**
  * App的Webhook控制器
  */
-class AppWebhookController extends Controller {
+export default class AppWebhookController extends Controller {
   /**
    * 版本更新
-   * {"action":"应用更新","title":"QQ","link":"https://www.pgyer.com/abcd","message":"您的应用QQ有了新的版本(0.4.0)更新。","type":"updateVersion","os_version":"0.4.0","build_version":"2","created":"2020-07-15 10:50:54","updated":"2020-07-15 10:50:54","timestamp":1594781454,"appsize":"26662364","device_type":"iOS","notes":""}
    */
-  async update() {
+  public async update() {
     const { accessToken } = this.ctx.params;
-    const req = this.ctx.request.body;
+    const req = this.ctx.request.body as PgyerWebhookUpdate;
     console.log(`@update请求：\n${JSON.stringify(req)}`);
     if (!accessToken || !req.type || req.type !== 'updateVersion') {
       this.ctx.body = 'do nothing';
@@ -28,5 +26,3 @@ class AppWebhookController extends Controller {
     this.ctx.body = res;
   }
 }
-
-module.exports = AppWebhookController;
