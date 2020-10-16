@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import ApiRes from '../model/ApiRes';
 import PgyerWebhookUpdate from '../model/dto/PgyerWebhookUpdate';
 
 /**
@@ -13,8 +14,7 @@ export default class AppWebhookController extends Controller {
     const req = this.ctx.request.body as PgyerWebhookUpdate;
     console.log(`@update请求：\n${JSON.stringify(req)}`);
     if (!accessToken || !req.type || req.type !== 'updateVersion') {
-      this.ctx.body = 'do nothing';
-      return;
+      this.ctx.body = ApiRes.success(null, 'do nothing');
     }
 
     const pushContent = `应用「${req.title} for ${req.device_type}」有新的版本更新
@@ -23,6 +23,6 @@ export default class AppWebhookController extends Controller {
     console.log(`发送钉钉通知：\n${pushContent}`);
     const res = await this.ctx.service.dingtalk.sendText(accessToken, pushContent);
 
-    this.ctx.body = res;
+    this.ctx.body = new ApiRes(res.errcode, res.errmsg, req);
   }
 }

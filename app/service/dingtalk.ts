@@ -11,8 +11,13 @@ export default class DingtalkService extends Service {
    * @param atMobiles 被at人的手机号
    * @param isAtAll 是否at所有人
    */
-  public async sendText(accessToken: string, content: string, atMobiles: string[] = [], isAtAll = false) {
-    const res = await this.ctx.curl(`https://oapi.dingtalk.com/robot/send?access_token=${accessToken}`, {
+  public async sendText(
+    accessToken: string,
+    content: string,
+    atMobiles: string[] = [],
+    isAtAll = false,
+  ): Promise<DingTalkResp> {
+    const res = await this.ctx.curl<DingTalkResp>(`https://oapi.dingtalk.com/robot/send?access_token=${accessToken}`, {
       method: 'POST',
       contentType: 'json',
       dataType: 'json',
@@ -29,4 +34,9 @@ export default class DingtalkService extends Service {
     });
     return res.data;
   }
+}
+
+class DingTalkResp {
+  public errcode: number;
+  public errmsg: '';
 }
