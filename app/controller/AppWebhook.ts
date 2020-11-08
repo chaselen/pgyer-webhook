@@ -15,6 +15,7 @@ export default class AppWebhookController extends Controller {
     console.log(`@update请求：\n${JSON.stringify(req)}`);
     if (!accessToken || !req.type || req.type !== 'updateVersion') {
       this.ctx.body = ApiRes.success(null, 'do nothing');
+      return;
     }
 
     const pushContent = `应用「${req.title} for ${req.device_type}」有新的版本更新
